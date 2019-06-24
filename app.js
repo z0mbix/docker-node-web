@@ -1,11 +1,15 @@
-var http = require('http');
-var os = require('os');
-var port = process.env.PORT || 3000;
-var host = os.hostname() || 'unknown';
+const http = require("http");
+const os = require("os");
 
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello from ' + host + ' listening on port ' + port + '\n');
-}).listen(port);
+const port = process.env.PORT || 3000;
+const host = os.hostname() || "unknown";
 
-console.log('Server running on port ' + port);
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello from " + host + " listening on port " + port + "\n");
+});
+
+server.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}/`);
+});
